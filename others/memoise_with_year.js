@@ -1,18 +1,24 @@
 console.clear();
 function memoize(expensiveFn) {
-    const cache = {};
-    return (year, callback) => {
-        if (year in cache) {
-            // console.log('from cache')
-            callback(cache[year]);
-        } else {
-            // console.log('from expensiveFn')
-            expensiveFn(year, (result) => {
-                cache[year] = result;
-                callback(result);
-            });
-        }
-    };
+  let cache = {};
+
+  const memoized = (year, callback) => {
+    if (year in cache) {
+      callback(cache[year]);
+    } else {
+      expensiveFn(year, (result) => {
+        cache[year] = result;
+        callback(result);
+      });
+    }
+  };
+
+   // Add a method to clear the cache
+  memoized.clear = () => {
+    cache = {};
+  };
+
+  return memoized;
 }
 
 function expensiveFn(year, callbackFn) {
@@ -45,3 +51,13 @@ setTimeout(() => {
   });
 }, 200);
 // output: Response received: "movies list in 2010" in 0ms
+
+setTimeout(() => {
+  memoizedExpensiveFn.clear();
+  t1 = performance.now();
+  memoizedExpensiveFn(2010, (result) => {
+    let t2 = performance.now();
+    console.log(`Response received: ${result} in ${t2 - t1}ms`);
+  });
+}, 300);
+// output: Response received: "movies list in 2010" in 30ms
