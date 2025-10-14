@@ -11,7 +11,7 @@ function singleNumber(nums) {
     // Duplicate numbers will cancel out (a ^ a = 0)
     // Only the unique number will remain
     for (let num of nums) {
-        result ^= num;
+        result = result ^ num;
     }
     
     return result;
