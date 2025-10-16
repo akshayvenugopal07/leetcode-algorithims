@@ -1,0 +1,34 @@
+<!-- Question 2: Flexbox Fundamentals
+Create a navigation bar with these requirements:
+
+Logo on the left
+4 nav links in the center (equal spacing between them)
+Login button on the right
+Must remain on one line even on smaller screens
+Nav links should have equal spacing between them, not around them -->
+
+<nav class="navbar">
+  <div class="logo">LOGO</div>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+  </div>
+  <button class="login">Login</button>
+</nav>
+
+<style>
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    /* flex-wrap: nowrap is default, not needed */
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px; /* Equal spacing BETWEEN links */
+  }
+</style>
