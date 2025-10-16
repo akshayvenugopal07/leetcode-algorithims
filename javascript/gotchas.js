@@ -129,3 +129,126 @@ for (var i = 0; i < 3; i++) { setTimeout(function () { console.log('var:', i) },
 for (let j = 0; j < 3; j++) { setTimeout(function () { console.log('let:', j) }, 100); }
 for (var k = 0; k < 3; k++) { (function (k) { setTimeout(function () { console.log('IIFE var:', k) }, 100); })(k); }
 // Answer: var loop prints 3 3 3 (shared var). let loop prints 0 1 2 (block scope per iteration). IIFE with var prints 0 1 2 (new function scope per iteration).
+
+
+
+// Question 1 — Closures & var/let/const
+// code to run
+function createFunctions() {
+    var arr = [];
+
+    for (var i = 0; i < 3; i++) {
+        arr.push(function () {
+            console.log('var loop:', i);
+        });
+    }
+
+    for (let j = 0; j < 3; j++) {
+        arr.push(function () {
+            console.log('let loop:', j);
+        });
+    }
+
+    return arr;
+}
+
+const functions = createFunctions();
+functions[0]();
+functions[3]();
+
+// Answer and why
+// Output:
+// var loop: 3
+// let loop: 0
+// Explanation:
+// - `var` is function-scoped. All functions share the same `i` which ends up being 3.
+// - `let` is block-scoped. Each function captures the value of `j` at its iteration.
+// - Fix `var` loop: use an IIFE or `let` inside the loop to capture the value per iteration.
+
+
+
+// Question 2 — Async, Promises, setTimeout, microtasks/macrotasks
+// code to run
+console.log('start');
+
+setTimeout(() => {
+    console.log('timeout 1');
+}, 0);
+
+Promise.resolve()
+    .then(() => {
+        console.log('promise 1');
+    })
+    .then(() => {
+        console.log('promise 2');
+    });
+
+setTimeout(() => {
+    console.log('timeout 2');
+}, 0);
+
+console.log('end');
+
+// Answer and why
+// Output:
+// start
+// end
+// promise 1
+// promise 2
+// timeout 1
+// timeout 2
+// Explanation:
+// - Synchronous code runs first: 'start', 'end'
+// - Microtasks (Promises) run after sync code: 'promise 1', 'promise 2'
+// - Macrotasks (setTimeout) run after microtasks: 'timeout 1', 'timeout 2'
+// - async/await behaves similarly to Promise.then regarding microtasks.
+
+
+
+// Question 3 — Prototype, method shadowing, and `new` keyword
+// code to run
+function Animal(name) {
+    this.name = name;
+}
+
+Animal.prototype.speak = function () {
+    console.log(`${this.name} makes a noise`);
+};
+
+function Dog(name) {
+    Animal.call(this, name);
+}
+
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+
+Dog.prototype.speak = function () {
+    console.log(`${this.name} barks`);
+};
+
+const d1 = new Dog('Rex');
+const d2 = new Dog('Buddy');
+
+d1.speak();
+d2.__proto__.__proto__.speak.call(d2);
+
+console.log(d1 instanceof Dog);
+console.log(d1 instanceof Animal);
+console.log(d2.constructor === Dog);
+console.log(d2.constructor === Animal);
+
+// Answer and why
+// Output:
+// Rex barks
+// Buddy makes a noise
+// true
+// true
+// true
+// false
+// Explanation:
+// - d1.speak() finds speak on Dog.prototype → method shadowing hides Animal.prototype.speak
+// - d2.__proto__.__proto__.speak.call(d2) calls parent prototype method
+// - instanceof checks the prototype chain
+// - constructor property points to Dog because we reset it after Object.create
+// - If we didn’t reset constructor, d2.constructor would incorrectly point to Animal
+
