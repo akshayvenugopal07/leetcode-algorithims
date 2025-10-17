@@ -21,19 +21,23 @@ class AsyncTaskQueue {
             this.runningTasks = this.runningTasks + 1;
             task()
                 .then((data) => {
-                    if (this.queuedTaskList.length !== 0) {
-                        this.runningTasks = this.runningTasks - 1;
-                        this.queue(this.queuedTaskList.shift());
-                    }
+                    console.log("Task completed:", data);
                 })
                 .catch((error) => {
-                    if (this.queuedTaskList.length !== 0) {
-                        this.runningTasks = this.runningTasks - 1;
-                        this.queue(this.queuedTaskList.shift());
-                    }
+                    console.log("Task failed:", error);
                 })
+                .finally(() => {
+                    this.checkQueue();
+                });
         } else {
             this.queuedTaskList.push(task);
+        }
+    }
+
+    checkQueue() {
+        if (this.queuedTaskList.length !== 0) {
+            this.runningTasks = this.runningTasks - 1;
+            this.queue(this.queuedTaskList.shift());
         }
     }
 

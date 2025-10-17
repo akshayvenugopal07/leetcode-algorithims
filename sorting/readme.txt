@@ -1,6 +1,6 @@
 🧠 Sorting Algorithms — Logic, Steps, and Visual Intuition
 
-This guide explains Bubble Sort, Selection Sort, Insertion Sort, and Merge Sort — 
+This guide explains Bubble Sort, Selection Sort, Insertion Sort, Merge Sort and Quick Sort — 
 with logic, step-by-step examples, and intuitive visuals to help you truly understand them.
 It also covers Quick Sort, a commonly used and efficient sorting algorithm.
 
@@ -137,8 +137,8 @@ Input: [5, 3, 8, 4, 2]
    [5,3]             [8,4,2]
    /   \             /    \
  [5]   [3]        [8]    [4,2]
-                   / \
-                 [4] [2]
+                         /   \
+                        [4]  [2]
 
 → Merge upwards → [2,3,4,5,8]
 
@@ -165,13 +165,33 @@ Pick pivot = 5 → left: [3,4,2], right: [8]
 
 🧠 Intuition: choose a center point and arrange others around it — efficient in practice.
 
-🧾 Summary Table
-Sort Type	Best Case	Worst Case	Stable	In-place	Concept
-Bubble Sort	O(n²)	O(n²)	✅ Yes	✅ Yes	Repeated swapping
-Selection Sort	O(n²)	O(n²)	❌ No	✅ Yes	Select smallest each time
-Insertion Sort	O(n)	O(n²)	✅ Yes	✅ Yes	Insert in order
-Merge Sort	O(n log n)	O(n log n)	✅ Yes	❌ No	Divide and merge
-Quick Sort	O(n log n)	O(n²)	❌ No	✅ Yes	Partition by pivot
+# 🧾 Sorting Algorithms Comparison Table
+
+| Sort Algorithm | Best Case | Average Case | Worst Case | Space Complexity | Stable | In-Place | Key Concept |
+|----------------|-----------|--------------|------------|------------------|--------|----------|-------------|
+| 🫧 **Bubble Sort** | O(n) | O(n²) | O(n²) | O(1) | ✅ Yes | ✅ Yes | Repeated swapping of adjacent elements |
+| 🧩 **Selection Sort** | O(n²) | O(n²) | O(n²) | O(1) | ❌ No | ✅ Yes | Select smallest element each iteration |
+| 🪜 **Insertion Sort** | O(n) | O(n²) | O(n²) | O(1) | ✅ Yes | ✅ Yes | Insert elements in correct position |
+| 🧮 **Merge Sort** | O(n log n) | O(n log n) | O(n log n) | O(n) | ✅ Yes | ❌ No | Divide and conquer with merging |
+| ⚡ **Quick Sort** | O(n log n) | O(n log n) | O(n²) | O(log n) | ❌ No | ✅ Yes | Partition around pivot element |
+
+## 📊 Performance Summary
+
+| Algorithm | Best For | Worst For |
+|-----------|----------|-----------|
+| **Bubble Sort** | Educational purposes | Any practical use |
+| **Selection Sort** | Memory-constrained environments | Large datasets |
+| **Insertion Sort** | Small or nearly sorted arrays | Large random datasets |
+| **Merge Sort** | Guaranteed O(n log n) performance | Memory-limited systems |
+| **Quick Sort** | General-purpose sorting | Already sorted arrays (worst case) |
+
+## 🏆 Quick Recommendations
+
+- **🎯 General Purpose**: Quick Sort or Merge Sort
+- **📚 Learning**: Start with Bubble Sort, master Insertion Sort
+- **🔧 Small Arrays**: Insertion Sort
+- **⚖️ Guaranteed Performance**: Merge Sort
+- **💾 Memory Constrained**: In-place algorithms (Quick Sort, Insertion Sort)
 💡 Summary
 
 Easiest to learn: Bubble Sort 🫧
