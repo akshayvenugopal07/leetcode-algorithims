@@ -13,7 +13,7 @@ function memoize(expensiveFn) {
     }
   };
 
-   // Add a method to clear the cache
+  // Add a method to clear the cache
   memoized.clear = () => {
     cache = {};
   };
