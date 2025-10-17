@@ -252,3 +252,19 @@ console.log(d2.constructor === Animal);
 // - constructor property points to Dog because we reset it after Object.create
 // - If we didn’t reset constructor, d2.constructor would incorrectly point to Animal
 
+
+
+
+//How Would you fix this?
+const character = {
+  name: 'Simon',
+  getCharacter() {
+    return this.name;
+  }
+};
+const giveMeTheCharacterNOW = character.getCharacter;
+console.log('Output', giveMeTheCharacterNOW()); 
+//this should return 'Simon' but it doesn't
+
+// Solution 1: Use bind to fix the context
+// const giveMeTheCharacterNOW = character.getCharacter.bind(character);
