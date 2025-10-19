@@ -1,0 +1,126 @@
+<!-- /*
+A social media site you are working on is looking to add a real-time notification system to display new user comments.
+
+The desired functionality for this system is:
+- When the page loads, display the first 5 comments.
+- Check for new comments every 5 seconds and display them without refreshing the page.
+- Highlight new comments with a different background color for exactly 5 seconds after they are added.
+- Remove the highlight from previous new comments after 5 seconds have elapsed.
+
+You can use this endpoint to fetch comments for testing: https://dummyjson.com/comments?limit=5. Each comment has the following structure:
+{
+  "comments": [
+    {
+      "id": 1,
+      "body": "You have a new follower!",
+    }
+  ]
+}
+
+To simulate new comments, use the skip parameter by incrementing the value passed to it. -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Notification UI</title>
+  </head>
+  <body>
+    <h1>Hello this is the notification area</h1>
+    <span id="notifications" class="notification-area"> </span>
+
+    <template>
+      <div class="card">
+        <h4>Body</h4>
+        <span>Likes</span>
+        <p>User</p>
+      </div>
+    </template>
+  </body>
+
+  <style>
+    .notification-area {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+      gap: 4px;
+    }
+    .card {
+      display: flex;
+      width: 300px;
+      flex-direction: column;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px 0;
+    }
+  </style>
+
+  <script>
+    let skipCount = 0;
+    let comments = [];
+    let interval = null;
+    let limit = 5;
+    let basePath = `https://dummyjson.com/comments?limit=${limit}`;
+
+    window.addEventListener("load", (event) => {
+      fetchCommentsAPI();
+      fetchCommentsEvery5Seconds();
+    });
+
+    window.addEventListener("beforeunload", function (e) {
+      resetDefaults();
+    });
+
+    function resetDefaults() {
+      skipCount = 0;
+      clearInterval(interval);
+    }
+
+    function fetchCommentsEvery5Seconds() {
+      interval = setInterval(() => {
+        skipCount = skipCount + 5;
+        fetchCommentsAPI(skipCount);
+      }, 5000);
+    }
+
+    function fetchCommentsAPI(skip = 0) {
+      fetch(`${basePath}&skip=${skip}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.comments.length !== 0) {
+            appendToHtml(data.comments);
+            comments = [...comments, ...data.comments];
+          } else {
+            resetDefaults();
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching comments:", error);
+        });
+    }
+
+    function appendToHtml(newComments) {
+      const notificationArea = document.getElementById("notifications");
+
+      newComments.forEach((comment) => {
+        let temp = document.getElementsByTagName("template")[0];
+        let clone = temp.content.cloneNode(true);
+        clone.querySelector("h4").innerText = comment.body;
+        clone.querySelector("span").innerText = comment.likes;
+        clone.querySelector("p").innerText = comment.user.fullName;
+
+        // Append first, then get reference to the actual DOM element
+        notificationArea.appendChild(clone);
+
+        // Get the last added card element
+        const addedCard = notificationArea.lastElementChild;
+        addedCard.style.backgroundColor = "yellow";
+
+        setTimeout(() => {
+          addedCard.style.backgroundColor = "transparent";
+        }, 5000);
+      });
+    }
+  </script>
+</html>
