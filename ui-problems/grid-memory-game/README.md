@@ -29,8 +29,6 @@
 // The game should include a reset button.
 // The reset button should be enabled only at the end of the game, allowing the user to reset and restart the game.
 
-DEVtools
-
 // Create a react app
 // Create a color creating util
 // Create cell component that takes color only
@@ -41,4 +39,22 @@ DEVtools
 // if match keep color displayed
 // if colors do not match rest the cell
 // for round count every click and divide by 2 to get rounds
+
+
+ MISSING REQUIREMENTS:
+1. 400ms Reset Delay
+MISSING: Non-matching pairs should hide after 400ms
+YOUR CODE: No timing mechanism at all
+2. Round Tracking
+MISSING: Count of attempts/rounds
+YOUR CODE: No round counter implementation
+3. Game Completion Detection
+MISSING: No way to know when game is finished
+YOUR CODE: Game never "ends"
+4. Reset Functionality
+MISSING: Reset button (enabled only at game end)
+YOUR CODE: No reset mechanism
+5. End Game State Management
+MISSING: Final score display, congratulations message
+YOUR CODE: No end game handling
 

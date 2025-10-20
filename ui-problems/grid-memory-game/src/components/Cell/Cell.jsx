@@ -1,28 +1,28 @@
 import { useState, useEffect } from "react";
 
 function Cell(props) {
-  const [color, setColor] = useState("");
-  const [displayColor, setDisplayColor] = useState("");
+  const [displayColor, setDisplayColor] = useState("#fff");
 
   useEffect(() => {
-    setColor(props.color);
-    setDisplayColor("#fff");
-  }, [props.color]);
+    if (props.showColor) {
+      setDisplayColor(props.color);
+    } else {
+      setDisplayColor("#fff");
+    }
+  }, [props.showColor, props.color]);
 
-  useEffect(() => {
-    setColor(props.color);
-  }, [props.showColor]);
+  const handleClick = () => {
+    if (props.onCellClick) {
+      props.onCellClick(props.id);
+    }
+  };
 
   return (
     <div
-      className="cell"
+      className={`cell ${props.isMatched ? 'matched' : ''}`}
       style={{ backgroundColor: displayColor }}
-      onClick={() => {
-        setDisplayColor(color);
-        props.onSelectColor(props);
-      }}
+      onClick={handleClick}
     >
-      <p>Cell</p>
     </div>
   );
 }
