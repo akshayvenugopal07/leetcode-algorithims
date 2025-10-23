@@ -14,7 +14,6 @@ const renderPage = (app, html) => {
   app.innerHTML = html;
 }
 
-
 export function router(app, path, modules) {
   if (typeof currentModule?.cleanup === 'function') {
     try {
