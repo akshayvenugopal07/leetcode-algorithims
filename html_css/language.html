@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing Direction Demo</title>
+<style>
+  body {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 40px;
+    font-family: "Noto Sans", "Noto Sans Arabic", "Noto Sans JP", sans-serif;
+    background: #fafafa;
+  }
+
+  .box {
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    background: white;
+    width: 220px;
+    height: 300px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .ltr {
+    direction: ltr;
+  }
+
+  .rtl {
+    direction: rtl;
+  }
+
+  .vertical {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    line-height: 1.6;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="box ltr">
+    <h2>English (LTR)</h2>
+    <p>
+      This text flows from left to right.  
+      English and most European languages are written this way.
+    </p>
+  </div>
+
+  <div class="box rtl">
+    <h2>العربية (RTL)</h2>
+    <p>
+      هذا النص يُكتب من اليمين إلى اليسار.  
+      تُستخدم هذه الطريقة في اللغة العربية والعبرية.
+    </p>
+  </div>
+
+  <div class="box vertical">
+    <h2>日本語 (Vertical)</h2>
+    <p>
+      縦書きの日本語テキストです。  
+      上から下へ、右から左へ進みます。
+    </p>
+  </div>
+
+</body>
+</html>
