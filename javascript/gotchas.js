@@ -117,7 +117,10 @@ console.log('1');
 setTimeout(() => console.log('2'), 0);
 Promise.resolve()
     .then(() => console.log('3'))
-    .then(() => { setTimeout(() => console.log('4'), 0); console.log('5'); });
+    .then(() => { 
+        setTimeout(() => console.log('4'), 0); 
+        console.log('5'); 
+    });
 Promise.resolve().then(() => console.log('6'));
 console.log('7');
 // Answer: Output 1 7 3 6 5 2 4. Microtasks (Promises) run before macrotasks (setTimeout). Chained then runs after current microtasks.
