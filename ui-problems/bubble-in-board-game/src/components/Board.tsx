@@ -1,29 +1,40 @@
 import { useState, useEffect } from "react";
 
+import { useTheme } from '../context/theme';
+
 import Bubble from "./Bubble";
 
 import "../App.css";
 
+interface Bubble {
+  id: number;
+  xPos: number;
+  yPos: number;
+  background: string;
+}
+
 function Board() {
   const [isLoading, setIsLoading] = useState(true);
-  const [bubbles, setBubbleItem] = useState([]);
+  const [bubbles, setBubbleItem] = useState<Bubble[]>([]);
+
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     setIsLoading(false);
+    console.log(theme)
     return () => {
       console.log("Cleanup Here");
     };
   }, []);
 
-  const addBubbleToBoard = (event) => {
-    console.log(event);
-    setBubbleItem([
-      ...bubbles,
+  const addBubbleToBoard = (event: any) => {
+    setBubbleItem((prevBubbles) => [
+      ...prevBubbles,
       {
         id: new Date().getTime(),
         xPos: event.clientX,
         yPos: event.clientY,
-        background: generateRandomColor()
+        background: generateRandomColor(),
       },
     ]);
   };

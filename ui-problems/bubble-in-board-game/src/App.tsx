@@ -1,13 +1,17 @@
-import Board from './components/Board';
+import Board from "./components/Board";
 
-import './App.css'
+import { ThemeProvider } from "./context/theme";
+
+import "./App.css";
 
 function App() {
   return (
     <>
-      <Board />
+      <ThemeProvider>
+        <Board />
+      </ThemeProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
