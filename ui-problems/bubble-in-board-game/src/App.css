@@ -1,0 +1,19 @@
+#root {
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.board-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  border: 4px red solid;
+}
+
+.circle {
+  background-color: red;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+}
