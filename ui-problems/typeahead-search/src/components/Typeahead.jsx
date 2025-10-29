@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 
 import SearchItem from "./SearchItem";
-import { debounceUtility, fetchData } from "../utils/util";
+import { fetchData } from "../utils/util";
+import useDebouncedCallback from "../hooks/debounce";
 
 import "../App.css";
 
@@ -20,7 +21,7 @@ function Typeahead() {
     setPokemon(data.results);
   };
 
-  const getPokemonData = async (event) => {
+  const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
@@ -32,7 +33,7 @@ function Typeahead() {
     setFilteredPokemon(filtered);
   }, [searchTerm, pokemon]);
 
-  const debouncedFetchData = debounceUtility(getPokemonData, 500);
+  const debouncedHandleSearch = useDebouncedCallback(handleSearch, 500);
 
   return (
     <div className="search-area">
@@ -41,7 +42,7 @@ function Typeahead() {
         id="search"
         className="search"
         placeholder="Search Pokemon here.."
-        onChange={debouncedFetchData}
+        onChange={(e) => debouncedHandleSearch(e)}
       />
       {searchTerm && (
         <div className="pokemon-list">
