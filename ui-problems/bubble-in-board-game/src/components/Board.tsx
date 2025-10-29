@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 
-import { useTheme } from '../context/theme';
-
 import Bubble from "./Bubble";
 
 import "../App.css";
@@ -17,11 +15,8 @@ function Board() {
   const [isLoading, setIsLoading] = useState(true);
   const [bubbles, setBubbleItem] = useState<Bubble[]>([]);
 
-  const { theme, toggleTheme } = useTheme();
-
   useEffect(() => {
     setIsLoading(false);
-    console.log(theme)
     return () => {
       console.log("Cleanup Here");
     };
